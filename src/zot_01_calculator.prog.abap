@@ -31,11 +31,10 @@ AT SELECTION-SCREEN.
         IF screen-group1 = 'CR'.
           lv_res_char = lv_res.
           CONCATENATE 'Your result is ' lv_res_char
-                      INTO res_text
-                      RESPECTING BLANKS.
+                INTO res_text
+                RESPECTING BLANKS.
         ENDIF.
-        MODIFY SCREEN.
-*        without modify screen, it still works. why ?
+        "MODIFY SCREEN.
       ENDLOOP.
   ENDCASE.
 
