@@ -30,21 +30,26 @@ START-OF-SELECTION.
 
 *  BREAK otaezdesir.
 
-LOOP AT lt_sat_report INTO ls_sat_report.
-    IF ls_sat_report-menge > 10.
-        ls_sat_report-color = 'C510'.
-        MODIFY lt_sat_report FROM ls_sat_report.
-    ENDIF.
-    CLEAR ls_sat_report.
-ENDLOOP.
+  CASE 'X'.
+    WHEN r_sat.
+
+      LOOP AT lt_sat_report INTO ls_sat_report.
+        IF ls_sat_report-menge > 10.
+          ls_sat_report-color = 'C510'.
+          MODIFY lt_sat_report FROM ls_sat_report.
+        ENDIF.
+        CLEAR ls_sat_report.
+      ENDLOOP.
 * sas icin sy_subrc 4 aliyor yani hic record bulamiyor.
-*LOOP AT lt_sas_report INTO ls_sas_report.
-*    IF ls_sas_report-menge > 10.
-*        ls_sas_report-color = 'C510'.
-*        MODIFY lt_sas_report FROM ls_sas_report.
-*    ENDIF.
-*    CLEAR ls_sas_report.
-*ENDLOOP.
+    WHEN r_sas.
+      LOOP AT lt_sas_report INTO ls_sas_report.
+        IF ls_sas_report-menge > 10.
+          ls_sas_report-color = 'C510'.
+          MODIFY lt_sas_report FROM ls_sas_report.
+        ENDIF.
+        CLEAR ls_sas_report.
+      ENDLOOP.
+  ENDCASE.
 
 END-OF-SELECTION.
   go_main->display_grid( ).
