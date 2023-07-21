@@ -48,7 +48,8 @@ START-OF-SELECTION.
     DATA(index_1) = sy-tabix.
     LOOP AT lt_words INTO ls_word_2.
       DATA(index_2) = sy-tabix.
-      IF ls_word-text CO ls_word_2-text AND index_1 LT index_2.
+
+      IF ls_word-text CO ls_word_2-text AND ls_word_2-text CO ls_word-text AND index_1 LT index_2.
         WRITE: ls_word, ' - ', ls_word_2, /.
         INSERT ls_word INTO TABLE lt_contains.
         INSERT ls_word_2 INTO TABLE lt_contains.
