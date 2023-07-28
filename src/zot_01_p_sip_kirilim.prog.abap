@@ -15,14 +15,18 @@ FORM order_details USING p_ucomm TYPE sy-ucomm
     WHEN '&IC1'.
 *      sy-ucomm da &ic1 cift tiklandi demek
 *      MESSAGE 'Double clicked. Thanks...' TYPE 'I'.
-      CONCATENATE ps_selfield-fieldname ' EQ '  '''' ps_selfield-value '''' INTO DATA(lv_sql_str).
-      SELECT vbak~vbeln, vbak~kunnr, vbak~bname, vbak~auart, vbak~autlf, vbak~audat,
-      vbap~posnr, vbap~matnr, vbap~arktx, vbap~netwr, vbap~waerk, vbap~charg
-      FROM vbak JOIN vbap ON vbak~vbeln = vbap~vbeln
-      INTO TABLE @DATA(lt_order_details)
-      WHERE (lv_sql_str).
+      IF ps_selfield-fieldname = 'NETWR'.
+
+      ELSE.
+        CONCATENATE ps_selfield-fieldname ' EQ '  '''' ps_selfield-value '''' INTO DATA(lv_sql_str).
+        SELECT vbak~vbeln, vbak~kunnr, vbak~bname, vbak~auart, vbak~autlf, vbak~audat,
+        vbap~posnr, vbap~matnr, vbap~arktx, vbap~netwr, vbap~waerk, vbap~charg
+        FROM vbak JOIN vbap ON vbak~vbeln = vbap~vbeln
+        INTO TABLE @DATA(lt_order_details)
+        WHERE (lv_sql_str).
+        cl_demo_output=>display( lt_order_details ).
+      ENDIF.
   ENDCASE.
-  cl_demo_output=>display( lt_order_details ).
 ENDFORM.
 
 INCLUDE zot_01_i_sip_kirilim_sel.
